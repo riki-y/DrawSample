@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "GameLayer.h"
 
 USING_NS_CC;
 
@@ -44,12 +44,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
-    register_all_packages();
+    glview->setDesignResolutionSize(640, 1136, ResolutionPolicy::FIXED_WIDTH);
 
-    // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-
-    // run
+    auto scene = GameLayer::createScene();
     director->runWithScene(scene);
 
     return true;
