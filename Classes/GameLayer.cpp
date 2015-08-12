@@ -43,6 +43,11 @@ bool GameLayer::init()
     
     initBackground(); // 背景の初期化
     
+    renderTexture = RenderTexture::create(WINSIZE.width, WINSIZE.height);
+    renderTexture->setPosition(Vec2(WINSIZE.width/2, WINSIZE.height/2));
+    this->addChild(renderTexture);
+
+    
     return true;
 }
 
@@ -57,11 +62,20 @@ void GameLayer::initBackground()
 
 bool GameLayer::onTouchBegan(Touch* touch, Event* unused_event)
 {
+    this->prevPos = touch->getLocation();
     return true;
 }
 
 void GameLayer::onTouchMoved(Touch* touch, Event* unused_event)
 {
+    renderTexture->begin();
+    auto drawNode = DrawNode::create();
+    auto pos = touch->getLocation();
+    drawNode->drawSegment(prevPos, pos, 2, Color4F(1, 1, 1, 1));
+    drawNode->visit();
+    renderTexture->end();
+    
+    this->prevPos = pos;
 }
 
 void GameLayer::onTouchEnded(Touch* touch, Event* unused_event)
