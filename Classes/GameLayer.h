@@ -25,6 +25,9 @@ protected:
     };
     
     void initBackground(); // 背景の初期化
+    
+    cocos2d::Vec2 prevPos;
+    cocos2d::RenderTexture* renderTexture;
   
 public:
     GameLayer(); // コンストラクタ
